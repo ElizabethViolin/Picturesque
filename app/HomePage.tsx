@@ -1,12 +1,14 @@
 "use client";
 
 import React, { useState } from 'react';
-import DetailsDialog from '@/components/DetailsDialog';
-import SearchBar from '@/components/SearchBar';
+import Masonry from 'react-masonry-css';
+import DetailsDialog from '../components/DetailsDialog';
+import SearchBar from '../components/SearchBar';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import { useImageFetcher } from '@/hooks/useImageFetcher';
+import { breakpointColumnsObj } from '@/config/masonryConfig';
 
-// Home page component to display images
+// Home page component to display images in a masonry layout and with infinite scroll
 export default function HomePage() {
   const [term, setTerm] = useState<string>('');
   const [page, setPage] = useState<number>(1);
@@ -21,13 +23,15 @@ export default function HomePage() {
   };
 
   return (
-    <div className="min-h-screen">
+    <div className="container mx-auto p-4">
       <SearchBar searchText={(text) => setTerm(text)} clearSearch={clearSearch} term={term} />
 
-      <main className="p-4">
-        {isLoading && <p className="text-center">Loading...</p>}
-        {error && <p className="text-center text-red-500">Error: {error}</p>}
-        
+      {error && <h1 className="text-4xl text-center mx-auto mt-32">Error: {error}</h1>}
+
+      {!isLoading && images.length === 0 && !error && (
+        <h1 className="text-4xl text-center mx-auto mt-32">No Images Found</h1>
+      )}
+
         <InfiniteScroll
           dataLength={images.length}
           next={fetchMoreImages}
@@ -39,16 +43,16 @@ export default function HomePage() {
             </p>
           }
         >
-          <div className="flex flex-wrap justify-center">
+          <Masonry
+            breakpointCols={breakpointColumnsObj}
+            className="flex w-auto -ml-4"
+            columnClassName="pl-4 bg-clip-padding"
+          >
             {images.map((image) => (
-              <div key={image.id} className="m-2">
-                <DetailsDialog image={image} />
-              </div>
+              <DetailsDialog key={image.id} image={image} />
             ))}
-          </div>
-        
+          </Masonry>
         </InfiniteScroll>
-      </main>
     </div>
   );
 }
