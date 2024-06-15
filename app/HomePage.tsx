@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import { useImageFetcher } from '@/hooks/useImageFetcher';
 import SearchBar from '@/components/SearchBar';
+import DetailsDialog from '@/components/DetailsDialog';
 
 // Home page component to display images
 export default function HomePage() {
@@ -26,12 +27,7 @@ export default function HomePage() {
         <div className="flex flex-wrap justify-center">
           {images.map((image) => (
             <div key={image.id} className="m-2">
-              {/* eslint-disable @next/next/no-img-element */}
-              <img
-                src={image.webformatURL}
-                alt={image.tags}
-                className="w-60 h-60 rounded-lg"
-              />
+              <DetailsDialog image={image} />
             </div>
           ))}
         </div>
