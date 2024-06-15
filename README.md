@@ -1,36 +1,58 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Picturesque
+
+### Deployed application:
+https://picturesque-tau.vercel.app/
+
+
+Picturesque is a web application that allows users to search for images and view image details using the Pixabay API.  
+
+- **Frontend**: Next.js, TypeScript, TailwindCSS
+- **External API**: Pixabay
+- **Code Quality Tools**: ESLint, Prettier
+
+## Features
+
+- **Image Search**: Search for images using the Pixabay API.
+- **Infinite Scroll**: Continuously load more images as you scroll down the page.
+- **Masonry Layout**: Images displayed in a responsive grid layout.
+- **Image Details**: View detailed information about each image.
+- **Code Quality**: Enforced with ESLint and Prettier.
+
+
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy up and running, follow these steps:
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+### Installation
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+1. Clone the repository:
+ ```sh
+ git clone https://github.com/your-username/picturesque.git
+ cd picturesque
+ ```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+2. Install the dependencies:
+ ```sh
+ npm install
+ ```
+### Pixabay API Key
+To run the application locally, you need to obtain an API key from Pixabay:
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+  1. Go to the Pixabay API website and sign up for an account.
 
-## Learn More
+  2. Generate an API key.
 
-To learn more about Next.js, take a look at the following resources:
+### Running the Application
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  1. Create a `.env.local` file in the root of your project and add your Pixabay API key:
+ ```sh
+ PIXABAY_API_KEY=your_api_key_here
+ ```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+  2. Run the application:
+ ```sh
+ npm run dev
+ ```
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+  3. Open http://localhost:3000 with your browser to see the result.
