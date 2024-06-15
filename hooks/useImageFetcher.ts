@@ -5,7 +5,8 @@ import queryString from 'query-string';
 // Custom hook to fetch images from the API
 export const useImageFetcher = (term: string, page: number) => {
   const [images, setImages] = useState<PixabayImage[]>([]);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [hasMore, setHasMore] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 
   const fetchImages = useCallback(async () => {
@@ -26,18 +27,28 @@ export const useImageFetcher = (term: string, page: number) => {
       const data = await res.json();
 
       if (data.hits && Array.isArray(data.hits)) {
-        setImages((prevImages) => (page === 1 ? data.hits : [...prevImages, ...data.hits]));
+        setImages((prevImages) => [...prevImages, ...data.hits.slice(0, 20)]);
+        setHasMore(data.hits.length === 21);
+      } else {
+        setHasMore(false);
       }
     } catch (err) {
       setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      setHasMore(false);
     } finally {
       setIsLoading(false);
     }
   }, [term, page]);
 
   useEffect(() => {
+    setImages([]);
+    setHasMore(true);
+    setIsLoading(true);
+  }, [term]);
+
+  useEffect(() => {
     fetchImages();
   }, [fetchImages]);
 
-  return { images, isLoading, error };
+  return { images, isLoading, hasMore, error };
 };
