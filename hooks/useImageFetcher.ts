@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { PixabayImage } from '../types/pixabay';
+import queryString from 'query-string';
 
 // Custom hook to fetch images from the API
 export const useImageFetcher = (term: string, page: number) => {
@@ -11,8 +12,7 @@ export const useImageFetcher = (term: string, page: number) => {
     setIsLoading(true);
     setError(null);
 
-    const searchTerm = term || 'popular'; 
-    const query = new URLSearchParams({ term: searchTerm, page: page.toString() }).toString();
+    const query = queryString.stringify({ term, page });
     const url = `/api/images?${query}`;
 
     try {

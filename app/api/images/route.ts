@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server';
+import queryString from 'query-string';
 
 // Handle GET requests to the images API route
 export async function GET(req: NextRequest) {
@@ -6,9 +7,17 @@ export async function GET(req: NextRequest) {
   const term = searchParams.get('term') || 'popular';
   const page = searchParams.get('page') || '1';
 
-  // Construct the Pixabay API URL using template literals
-  const apiKey = process.env.PIXABAY_API_KEY;
-  const url = `https://pixabay.com/api/?key=${apiKey}&image_type=photo&page=${page}&per_page=21&q=${encodeURIComponent(term)}`;
+  // Construct the Pixabay API URL
+  const url = queryString.stringifyUrl({
+    url: 'https://pixabay.com/api/',
+    query: {
+      key: process.env.PIXABAY_API_KEY,
+      image_type: 'photo',
+      page,
+      per_page: '21',
+      q: term,
+    },
+  });
 
   try {
     const response = await fetch(url);
