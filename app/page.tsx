@@ -1,6 +1,9 @@
-export default function Home() {
+"use server"
+
+import HomePage from './HomePage';
+
+export default async function Page() {  
   return (
-    <main>
-    </main>
+    <HomePage />
   );
 }
