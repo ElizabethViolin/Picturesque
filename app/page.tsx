@@ -1,9 +1,7 @@
-"use server"
+"use server";
 
-import HomePage from './HomePage';
+import HomePage from "./HomePage";
 
-export default async function Page() {  
-  return (
-    <HomePage />
-  );
+export default async function Page() {
+  return <HomePage />;
 }

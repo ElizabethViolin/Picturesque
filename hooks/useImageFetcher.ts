@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useState } from 'react';
-import { PixabayImage } from '../types/pixabay';
-import queryString from 'query-string';
+import { useCallback, useEffect, useState } from "react";
+import { PixabayImage } from "../types/pixabay";
+import queryString from "query-string";
 
 // Custom hook to fetch images from the API
 export const useImageFetcher = (term: string, page: number) => {
@@ -21,7 +21,7 @@ export const useImageFetcher = (term: string, page: number) => {
 
       if (!res.ok) {
         const errorData = await res.json();
-        throw new Error(errorData.message || 'Failed to fetch images');
+        throw new Error(errorData.message || "Failed to fetch images");
       }
 
       const data = await res.json();
@@ -33,7 +33,9 @@ export const useImageFetcher = (term: string, page: number) => {
         setHasMore(false);
       }
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An unknown error occurred');
+      setError(
+        err instanceof Error ? err.message : "An unknown error occurred",
+      );
       setHasMore(false);
     } finally {
       setIsLoading(false);

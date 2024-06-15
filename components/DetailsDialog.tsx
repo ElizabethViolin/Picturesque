@@ -1,6 +1,6 @@
-import React from 'react';
-import { PixabayImage } from '../types/pixabay';
-import { Dialog, DialogTrigger, DialogContent, DialogTitle } from './ui/dialog';
+import React from "react";
+import { PixabayImage } from "../types/pixabay";
+import { Dialog, DialogTrigger, DialogContent, DialogTitle } from "./ui/dialog";
 
 interface DetailsDialogProps {
   image: PixabayImage;
@@ -13,18 +13,23 @@ export default function DetailsDialog({ image }: DetailsDialogProps) {
       <Dialog>
         <DialogTrigger asChild>
           {/* eslint-disable @next/next/no-img-element */}
-          <img 
-            src={image.webformatURL} 
-            alt={`Image by ${image.user} with tags: ${image.tags}`} 
-            className="cursor-pointer" 
+          <img
+            src={image.webformatURL}
+            alt={`Image by ${image.user} with tags: ${image.tags}`}
+            className="cursor-pointer"
           />
         </DialogTrigger>
         <DialogContent>
           <div className="flex flex-col items-center justify-center p-4 space-y-4">
-            <DialogTitle className="font-bold text-2xl">Posted by: {image.user}</DialogTitle>
+            <DialogTitle className="font-bold text-2xl">
+              Posted by: {image.user}
+            </DialogTitle>
             <ul>
-              {image.tags.split(',').map((tag, index) => (
-                <li key={index} className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2">
+              {image.tags.split(",").map((tag, index) => (
+                <li
+                  key={index}
+                  className="inline-block bg-gray-200 rounded-full px-3 py-1 text-sm font-semibold text-gray-700 mr-2"
+                >
                   #{tag.trim()}
                 </li>
               ))}
