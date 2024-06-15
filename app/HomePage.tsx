@@ -1,38 +1,25 @@
 "use client";
 
-import React, { ChangeEvent, FormEvent, useState } from 'react';
+import React, { useState } from 'react';
 import { useImageFetcher } from '@/hooks/useImageFetcher';
+import SearchBar from '@/components/SearchBar';
 
 // Home page component to display images
 export default function HomePage() {
   const [term, setTerm] = useState<string>('');
   const [page, setPage] = useState<number>(1);
-  const [text, setText] = useState<string>('');
 
   const { images, isLoading, error } = useImageFetcher(term || 'popular', page);
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setTerm(text);
-    setPage(1); 
+  const clearSearch = () => {
+    setTerm('');
+    setPage(1);
   };
 
   return (
     <div className="min-h-screen">
-      <header className="p-4 bg-white shadow">
-        <form onSubmit={handleSubmit} className="flex items-center space-x-2">
-          <input 
-            value={text}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setText(e.target.value)} 
-            className="border-2" 
-            type="text" 
-            placeholder="Search images..." 
-          />
-          <button type="submit" className="p-2 bg-blue-500 text-white rounded">
-            Search
-          </button>
-        </form>
-      </header>
+      <SearchBar searchText={(text) => setTerm(text)} clearSearch={clearSearch} term={term} />
+
       <main className="p-4">
         {isLoading && <p className="text-center">Loading...</p>}
         {error && <p className="text-center text-red-500">Error: {error}</p>}
